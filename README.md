@@ -20,6 +20,15 @@ It should set the user-agent header to the same user-agent that it is being call
 * performance is not relevant
 * no support for Websockets
 
+## SSL Self Signed Certificate
+
+### Generate a certificate
+```
+openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
+```
+
+Note: To server SSL requests the certificate will have to be trusted by the local server.
+
 ## Examples 
 Assuming the web service is running on localhost:8000, here are some examples of how it can be used:
 
