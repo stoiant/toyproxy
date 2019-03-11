@@ -144,6 +144,12 @@ class GetPostServer(BaseHTTPRequestHandler):
             #serving the raw response with no support for chunking
             if(key.lower() == 'Transfer-Encoding'.lower()):
                 logging.info("Skipping {} with value {}".format(key,value))
+            #The gzip and deflate transfer-encodings are automatically decoded do not output encoding header
+            elif(key.lower() == 'Content-Encoding'.lower()):
+                if(value.lower() == 'gzip'.lower() or value.lower() == 'deflate'.lower()):
+                    logging.info("Skipping {} with value {}".format(key,value))
+                else:
+                    self.send_header(key, value)
             else:
                 self.send_header(key, value)
     
@@ -235,7 +241,7 @@ class GetPostServer(BaseHTTPRequestHandler):
                     self.wfile.write(bytes(message, ENCODING))
             else:
                 logging.info("Call to target host successful.")
-                self.send_response(response.status_code)
+                self.send_response(response.status)
                 self.write_headers(response.headers)
                 self.wfile.write(response.content)
                 self.close_connection = True
