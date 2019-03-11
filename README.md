@@ -64,6 +64,8 @@ python3 server.py
 * no TLS
 * response encoding set to `UTF-8` for custom messages
 * REQUEST_TIMEOUT set to 10 seconds
+* authentication is not supported
+* file transfer and limits in post not tested
 * timeboxed fun to toy with :)
 
 ## SSL Self Signed Certificate
